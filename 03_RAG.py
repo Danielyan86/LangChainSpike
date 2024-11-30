@@ -1,6 +1,6 @@
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain_community.embeddings import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 from langchain.prompts import ChatPromptTemplate
 from langchain_community.chat_models import ChatOpenAI
 
@@ -18,7 +18,7 @@ vectorstore = FAISS.from_texts(chunks, embeddings)
 
 # Retrieval-augmented generation
 retriever = vectorstore.as_retriever()
-retrieved_docs = retriever.get_relevant_documents("What is LangChain?")
+retrieved_docs = retriever.invoke("What is LangChain?")
 
 # Format and print the results
 for i, doc in enumerate(retrieved_docs, 1):
